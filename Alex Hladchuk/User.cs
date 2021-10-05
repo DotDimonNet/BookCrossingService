@@ -8,19 +8,24 @@ namespace ConsoleApp1
         public string Name { get; set; }
         public string Adress { get; set; }
         public object[] Ownership { set; get; }
-        public object[] OwnershipHelper { set; get; }
 
-        public void GaveBook(object Book, string BookTravelAgensy)
+        public void GaveBook(string Book, string BookTravelAgensy)
         {
-            for (int i = 0; i < Ownership.Length; i++)
+            if (Ownership.Length != 0)
             {
-                int numIndex = Array.IndexOf(Ownership, Book);
-                Ownership = Ownership.Where()
+                //In Dev....
+                //int numIndex = Array.IndexOf(Ownership, Book);
+                //Ownership = Ownership.Where((val, idx) => idx != numIndex).ToArray();
+
+                Console.WriteLine($"{Name} gave {Book} to the {BookTravelAgensy}");
             }
-            OwnershipHelper = Ownership;
-            
-            Console.WriteLine($"{Name} gave {Book} to the {BookTravelAgensy}");
+            else
+            {
+                Console.WriteLine("Ownership Error");
+              
+            }
         }
+
         public void TookBook(string Book, string BookTravelAgensy)
         {
             Console.WriteLine($"{Name} took {Book} from the {BookTravelAgensy}");

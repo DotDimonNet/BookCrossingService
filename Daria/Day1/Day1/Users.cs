@@ -9,15 +9,14 @@ namespace Day1
          public string name;
         public string address;
         public string phoneNumber;
-        
-        public string UserBooks { get; set; }
+        public List<Book> UserBooks  { get; set; }
         public Users(string Name, string Address, string PhoneNumber)
         {
             name = Name;
             address = Address;
             phoneNumber = PhoneNumber;
-            
-           // Console.WriteLine("ok");
+            UserBooks = new List<Book>();
+            // Console.WriteLine("ok");
         }
         public void GetInfo()
         {
@@ -25,19 +24,23 @@ namespace Day1
             Console.WriteLine("Address: {0}", address);
             
         }
-        public string GetInfoString()
-        {
-            return name + ',' + address + ',' + phoneNumber  + '.';
-        }
+       
 
         public void Follow(Book book) { }
         public void Swap(Book book, Users anotherUser) { }
 
         public void AddBook(Book book)
         {
-            UserBooks = UserBooks + book.title;
+            UserBooks.Add(book);
+
         }        
-       
+       public void ShowUserBooks()
+        {
+            foreach (var item in UserBooks)
+            {
+                Console.WriteLine(item.Title);
+            }
+        }
 
     }
     

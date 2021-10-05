@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConsoleApp1
 {
@@ -15,8 +13,8 @@ namespace ConsoleApp1
             PersonU jerry = new PersonU("Jerry", 10, "Soborna 18", "female");
             Book misterMercedes = new Book("Mister Mercedes", "Stiven King", "text");
             Book light = new Book("Light", "Stiven King", "file");
-            mainDB.Add(misterMercedes.Name+" - "+misterMercedes.Author+" - "+misterMercedes.Type);
-            mainDB.Add(light.Name+" - "+light.Author+" - "+light.Type);
+            mainDB.Add(misterMercedes);
+            mainDB.Add(light);
 
             void Border()
             {
@@ -25,26 +23,13 @@ namespace ConsoleApp1
 
             void UserGaveBook(PersonU user, int bookID)
             {
-                bool isBook = false;
-                foreach (var ID in user.Ownership)
-                {
-                    if (ID == bookID)
-                    {
-                        string Book = mainDB.DB[bookID];
-                        user.GaveBook(bookID, Book,"Agensy");
-                        isBook = true;
-                        break;
-                    }
-                }
-                if (isBook == false)
-                {
-                    Console.WriteLine("User doesn't have this book");
-                }
+                Book Book = mainDB.DB[bookID];
+                user.GaveBook(Book, "Agensy");
             }
             void UserTookBook(PersonU user, int bookID)
             {
-                string Book = mainDB.DB[bookID];
-                user.TookBook(bookID, Book);
+                Book Book = mainDB.DB[bookID];
+                user.TookBook(Book);
             }
 
             // CONTROL
@@ -58,13 +43,14 @@ namespace ConsoleApp1
             Border();
             light.GetInfo();
             Border();
+            vinnitsaLib.GetInfo();
+            Border();
             mainDB.ShowDB();
             Border();
 
-
             UserTookBook(tom, 1);
             Border();
-            tom.GetInfo();
+            tom.GetOwnership();
             
 
 

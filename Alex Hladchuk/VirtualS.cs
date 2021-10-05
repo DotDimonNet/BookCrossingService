@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1
 {
-    class Store
+    class VirtualS : Store
     {
     }
 }

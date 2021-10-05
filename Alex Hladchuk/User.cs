@@ -7,14 +7,20 @@ namespace ConsoleApp1
     {
         public string Name { get; set; }
         public string Adress { get; set; }
-        public int[] Ownership { set; get; }
+        public object[] Ownership { set; get; }
 
-        public void GaveBook(int BookID, string Book, string BookTravelAgensy)
+        public void GaveBook(Book Book, string BookTravelAgensy)
         {
             if (Ownership.Length != 0)
             {
-                Ownership = Ownership.Where(id => id != BookID).ToArray();
-                Console.WriteLine($"{Name} gave {Book} to the {BookTravelAgensy}");
+                int Len = Ownership.Length;
+                Ownership = Ownership.Where(book => book != Book).ToArray();
+                if (Len == Ownership.Length)
+                {
+                    Console.WriteLine("User doesn't have this book");
+                    return;
+                }
+                Console.WriteLine($"{Name} gave {Book.Name} - {Book.Author} to the {BookTravelAgensy}");
             }
             else
             {
@@ -22,75 +28,47 @@ namespace ConsoleApp1
             }
         }
 
-        public void TookBook(int BookID, string Book, string BookTravelAgensy)
+        public void TookBook(Book Book, string BookTravelAgensy)
         {
-            int[] OwnershipHelper = Ownership;
-            Array.Resize(ref OwnershipHelper, OwnershipHelper.Length + 1);
-            OwnershipHelper[OwnershipHelper.Length - 1] = BookID;
-            Console.WriteLine($"{Name} took {Book} from the {BookTravelAgensy}");
-        }
-        public void TookBook(int BookID, string Book)
-        {
-            int[] OwnershipHelper = Ownership;
-            Console.WriteLine(OwnershipHelper.Length);
-            if (OwnershipHelper.Length > 0)
+            object[] OwnershipHelper = Ownership;
+            if (OwnershipHelper != null)
             {
                 Array.Resize(ref OwnershipHelper, OwnershipHelper.Length + 1);
-                OwnershipHelper[OwnershipHelper.Length - 1] = BookID;
+                OwnershipHelper[OwnershipHelper.Length - 1] = Book;
             }
             else
             {
-                Ownership = new int[] {BookID};
+                Ownership = new object[] { Book };
             }
-            Console.WriteLine($"{Name} took {Book}");
+            Console.WriteLine($"{Name} took {Book.Name} - {Book.Author} from the {BookTravelAgensy}");
+        }
+        public void TookBook(Book Book)
+        {
+            object[] OwnershipHelper = Ownership;
+            if (OwnershipHelper != null)
+            {
+                Array.Resize(ref OwnershipHelper, OwnershipHelper.Length + 1);
+                OwnershipHelper[OwnershipHelper.Length - 1] = Book;
+            }
+            else
+            {
+                Ownership = new object[] { Book };
+            }
+            Console.WriteLine($"{Name} took {Book.Name} - {Book.Author}");
+        }
+        public void GetOwnership()
+        {
+            if (Ownership != null)
+            {
+                foreach (Book book in Ownership)
+                {
+                    Console.WriteLine($"{book.Name} - {book.Author}");
+                }
+            }
         }
     }
 
 
-    class PersonU : User
-    {
-        public int Age { set; get; }
-        public string Sex { set; get; }
-        public PersonU(string name, int age, string adress, string sex)
-        {
-            //Name
-            Name = name;
-            //Age
-            if (age <= 0)
-            {
-                Console.Write("Age Error\n");
-            }
-            else
-            {
-                Age = age;
-            }
-            //adress
-            Adress = adress;
-            //sex
-            if (sex != "male" && sex != "female")
-            {
-                Console.Write("Sex Error\n");
-            }
-            else
-            {
-                Sex = sex;
-            }
-        }
-
-        public void GetInfo()
-        {
-            Console.Write($"Name: {Name}\n" +
-                          $"Age: {Age}\n" +
-                          $"Adress: {Adress}\n" +
-                          $"Sex: {Sex}\n");
-        }
-    }
-    class LibraryU : User
-    {
-        public LibraryU(string name, string adress)
-        {
-            Name = name;
-            Adress = adress;
-        }
-    }
+    
+    
 }

@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ConsoleApp1
 {
     class BooksDB
     {
-        public string ID { set; get; }
-        public object Book { set; get; }
+        public int ID { set; get; }
+        public Book Book { set; get; }
 
-        public override string ToString()
+        public string Print(KeyValuePair<int, Book> line)
         {
-            return $"ID: {ID} Object: {Book}";
+            return $"ID: {line.Key} Book: {line.Value.Name} - {line.Value.Author} - {line.Value.Type}";
         }
-        public Dictionary<int, string> DB = new Dictionary<int, string>();
-        public void Add(string Book)
+        public Dictionary<int, Book> DB = new Dictionary<int, Book>();
+        public void Add(Book Book)
         {
             int NewID = DB.Count + 1;
             DB.Add(NewID, Book);
         }
         public void ShowDB()
         {
-            foreach (var line in DB)
+            foreach (KeyValuePair<int,Book> line in DB)
             {
-                Console.WriteLine(line.ToString());
+                Console.WriteLine(Print(line));
             }
         }
     }

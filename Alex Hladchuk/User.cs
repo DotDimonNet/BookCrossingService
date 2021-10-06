@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Linq;
 
 namespace ConsoleApp1
 {
@@ -7,28 +7,42 @@ namespace ConsoleApp1
     {
         public string Name { get; set; }
         public string Adress { get; set; }
-        public object[] Ownership { set; get; }
+        public int[] Ownership { set; get; }
 
-        public void GaveBook(string Book, string BookTravelAgensy)
+        public void GaveBook(int BookID, string Book, string BookTravelAgensy)
         {
             if (Ownership.Length != 0)
             {
-                //In Dev....
-                //int numIndex = Array.IndexOf(Ownership, Book);
-                //Ownership = Ownership.Where((val, idx) => idx != numIndex).ToArray();
-
+                Ownership = Ownership.Where(id => id != BookID).ToArray();
                 Console.WriteLine($"{Name} gave {Book} to the {BookTravelAgensy}");
             }
             else
             {
-                Console.WriteLine("Ownership Error");
-              
+                Console.WriteLine("Ownership is empty");
             }
         }
 
-        public void TookBook(string Book, string BookTravelAgensy)
+        public void TookBook(int BookID, string Book, string BookTravelAgensy)
         {
+            int[] OwnershipHelper = Ownership;
+            Array.Resize(ref OwnershipHelper, OwnershipHelper.Length + 1);
+            OwnershipHelper[OwnershipHelper.Length - 1] = BookID;
             Console.WriteLine($"{Name} took {Book} from the {BookTravelAgensy}");
+        }
+        public void TookBook(int BookID, string Book)
+        {
+            int[] OwnershipHelper = Ownership;
+            Console.WriteLine(OwnershipHelper.Length);
+            if (OwnershipHelper.Length > 0)
+            {
+                Array.Resize(ref OwnershipHelper, OwnershipHelper.Length + 1);
+                OwnershipHelper[OwnershipHelper.Length - 1] = BookID;
+            }
+            else
+            {
+                Ownership = new int[] {BookID};
+            }
+            Console.WriteLine($"{Name} took {Book}");
         }
     }
 
@@ -70,9 +84,13 @@ namespace ConsoleApp1
                           $"Adress: {Adress}\n" +
                           $"Sex: {Sex}\n");
         }
-    }   
+    }
     class LibraryU : User
     {
-
+        public LibraryU(string name, string adress)
+        {
+            Name = name;
+            Adress = adress;
+        }
     }
 }

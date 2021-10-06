@@ -6,9 +6,6 @@ namespace ConsoleApp1
 {
     public class Book
     {
-        private string name;
-        private string author;
-        private string type;
 
         public string Name { set; get; }
         public string Author { set; get; }
@@ -29,6 +26,8 @@ namespace ConsoleApp1
             {
                 Type = type;
             }
+            //ID
+            
         }
         public void GetInfo()
         {

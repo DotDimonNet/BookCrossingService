@@ -7,9 +7,9 @@ namespace ConsoleApp1
     {
         public string Name { get; set; }
         public string Adress { get; set; }
-        public object[] Ownership { set; get; }
+        public Book[] Ownership { set; get; }
 
-        public void GaveBook(Book Book, string BookTravelAgensy)
+        public void GaveBook(Book Book, string BookTravelAgency)
         {
             if (Ownership.Length != 0)
             {
@@ -20,7 +20,7 @@ namespace ConsoleApp1
                     Console.WriteLine("User doesn't have this book");
                     return;
                 }
-                Console.WriteLine($"{Name} gave {Book.Name} - {Book.Author} to the {BookTravelAgensy}");
+                Console.WriteLine($"{Name} gave {Book.Name} - {Book.Author} to the {BookTravelAgency}");
             }
             else
             {
@@ -28,9 +28,9 @@ namespace ConsoleApp1
             }
         }
 
-        public void TookBook(Book Book, string BookTravelAgensy)
+        public void TookBook(Book Book, string BookTravelAgency)
         {
-            object[] OwnershipHelper = Ownership;
+            Book[] OwnershipHelper = Ownership;
             if (OwnershipHelper != null)
             {
                 Array.Resize(ref OwnershipHelper, OwnershipHelper.Length + 1);
@@ -38,9 +38,9 @@ namespace ConsoleApp1
             }
             else
             {
-                Ownership = new object[] { Book };
+                Ownership = new Book[] { Book };
             }
-            Console.WriteLine($"{Name} took {Book.Name} - {Book.Author} from the {BookTravelAgensy}");
+            Console.WriteLine($"{Name} took {Book.Name} - {Book.Author} from the {BookTravelAgency}");
         }
         public void TookBook(Book Book)
         {
@@ -52,7 +52,7 @@ namespace ConsoleApp1
             }
             else
             {
-                Ownership = new object[] { Book };
+                Ownership = new Book[] { Book };
             }
             Console.WriteLine($"{Name} took {Book.Name} - {Book.Author}");
         }

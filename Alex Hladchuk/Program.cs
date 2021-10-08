@@ -21,15 +21,20 @@ namespace ConsoleApp1
                 Console.WriteLine("==================================================");
             }
 
-            void UserGaveBook(PersonU user, int bookID)
+            void UserGaveBook(User user, int bookID, BookTravelAgency Agency)
             {
                 Book Book = mainDB.DB[bookID];
-                user.GaveBook(Book, "Agensy");
+                user.GaveBook(Book, Agency.Name);
             }
-            void UserTookBook(PersonU user, int bookID)
+            void UserTookBook(User user, int bookID)
             {
                 Book Book = mainDB.DB[bookID];
                 user.TookBook(Book);
+            }
+            void Transfer(User sender, User recipient, int bookId, BookTravelAgency Agency)
+            {
+                UserGaveBook(sender, bookId, Agency);
+
             }
 
             // CONTROL
@@ -39,19 +44,23 @@ namespace ConsoleApp1
             Border();
             jerry.GetInfo();
             Border();
+            vinnitsaLib.GetInfo();
+            Border();
             misterMercedes.GetInfo();
             Border();
             light.GetInfo();
-            Border();
-            vinnitsaLib.GetInfo();
             Border();
             mainDB.ShowDB();
             Border();
 
             UserTookBook(tom, 1);
             Border();
+            UserTookBook(jerry, 2);
+            Border();
             tom.GetOwnership();
-            
+            Border();
+            jerry.GetOwnership();
+
 
 
 
